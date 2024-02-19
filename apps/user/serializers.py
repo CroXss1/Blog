@@ -12,7 +12,7 @@ class MyTokenSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super(MyTokenSerializer, cls).get_token(user)
         token['email'] = user.email
-        token['is_User'] = user.is_User
+        token['is_staff'] = user.is_staff
         return token
 
 
@@ -39,6 +39,9 @@ class UserSerializer(serializers.ModelSerializer):
     address = serializers.CharField(
         required=True
     )
+    is_staff = serializers.BooleanField(
+        required=True
+    )
     phone = serializers.CharField(
         required=True
     )
@@ -51,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
             'name',
             'second_name',
             'address',
-            'is_User',
+            'is_staff',
             'phone',
             'password',
             'password2',
